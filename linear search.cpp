@@ -2,18 +2,23 @@
 
 using namespace std;
 
+void search(int arr[],int key,int size)
+{
+    for(int i=0;i<size;i++)
+        if(key==arr[i])
+        {
+            cout<<key<<" present at index : "<<i<<endl;
+            return;
+        }
+    cout<<"not found"<<endl;
+}
+
 int main()
 {
-    int n,arr[10] = {1,2,3,4,5,6,7,8,9,10};
-    cin>>n;
-    for(int i=0;i<10;i++)
-        if(n==arr[i])
-        {
-            cout<<"Found at :"<<i<<endl;
-            break;
-        }
-        else if(i==9)
-            cout<<"Not Found!"<<endl;
+    int arr[10] = {1,2,5,3,7,8,9,4,2,1},key;
+    cout<<"Enter key : ";
+    cin>>key;
 
+    search(arr,key,10);
     return 0;
 }
