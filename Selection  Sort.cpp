@@ -18,8 +18,7 @@ void sort(int *index,int size){
     }
 }
 
-int main()
-{
+int main(){
     int n=0; cin>>n;
     int arr[n];
     for(int i=0;i<n;++i) cin>>arr[i];
