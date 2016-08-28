@@ -1,14 +1,5 @@
 //IN THE NAME OF ALLAH
 #include<iostream>
-#include<map>
-#include<cmath>
-#include<algorithm>
-#include<iomanip>
-#include<string>
-#define ll long long
-#define ui unsigned int
-#define db double
-#define fl float
 using namespace std;
 
 int gcd(int a, int b){
