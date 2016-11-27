@@ -1,18 +1,15 @@
 //IN THE NAME OF ALLAH
 #include<iostream>
+#define LL long long
 using namespace std;
 
-ll pow(int b, int p){
-	cout << i << endl;
-	if (p == 0) return 1;
-	ll sq = pow(b, p / 2);
-	sq = sq*sq;
-
-	if (p % 2 == 1) sq *= b;
-	return sq;
+LL Power(LL N, int M){
+	if (!M) return 1;
+	LL rs = Power(N, M / 2);
+	return M % 2 ? rs*rs*N : rs*rs;
 }
 
 int main(){
-	cout << pow(2, 32) << endl;
+	cout << Power(2, 32) << endl;
 	return 0;
 }
