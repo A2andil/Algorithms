@@ -3,15 +3,16 @@
 #define ll long long
 using namespace std;
 
+const int mx = 1002;
+ll Fib[mx];
 ll Fibonacci(int n) {
-	if (!n || n == 1) return n;
-	ll a = 0, b = 1, rs;
+	Fib[0] = 0, Fib[1] = 1;
 	for (int i = 2; i <= n; i++){
-		rs = a + b, a = b, b = rs;
+		Fib[i] = Fib[i - 1] + Fib[i - 2];
 	}
-	return rs;
+	return Fib[n];
 }
-int main(){
+int main() {
 	int n; cin >> n;
 	cout << Fibonacci(n) << endl;
 	return 0;
