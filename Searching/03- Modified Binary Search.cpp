@@ -19,6 +19,6 @@ int search(int k, int n) {
 
 int main(){
 	//put your code here
-
+	
 	return 0;
 }
