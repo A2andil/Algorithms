@@ -1,6 +1,6 @@
 //In The Name Of Allah
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 using namespace std;
 
 int MaximumSub(int arr[], int sz) {
@@ -11,7 +11,6 @@ int MaximumSub(int arr[], int sz) {
 	}
 	return rs;
 }
-
 int main() {
 	int arr[] = { -2, -3, 4, -1, -2, 1, 5, -3 };
 	int n = sizeof(arr) / sizeof(int);
