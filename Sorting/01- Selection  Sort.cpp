@@ -11,7 +11,7 @@ void sort(int *index, int size) {
 	int i, j, min, s;
 	for (i = 0; i < size - 1; ++i) {
 		min = *(index + i), s = i;
-		for (j = i + 1; j<size; ++j)
+		for (j = i + 1; j < size; ++j)
 		if (min > *(index + j))
 			min = *(index + j), s = j;
 
