@@ -17,7 +17,7 @@ int cutRod(int n) {
 		for (j = 0; j < i; j++)
 			max_val = max(max_val, price[j] + val[i - j - 1]);
 		val[i] = max_val;
-		price[i] = max(price[i], val[i]);
+		price[i - 1] = val[i];
 	}
 	return val[n];
 }
@@ -25,6 +25,6 @@ int cutRod(int n) {
 int main() {
 	int a[] = { 1, 5, 8, 9, 10, 17, 17, 20 };
 	for (int i = 0; i < 8; i++) price[i] = a[i];
-	cout << "Maximum Profit : " << cutRod(8) << endl;
+	cout << "Maximum Profit : " << cutRod(1) << endl;
 	return 0;
 }
