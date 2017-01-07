@@ -5,7 +5,7 @@ using namespace std;
 const int sz = 1000, sum = 1000;
 bool dp[sum][sz];
 
-bool dpSum(int set[], int n, int sum) {
+bool SubsetSum(int set[], int n, int sum) {
 	for (int i = 0; i <= n; i++)
 		dp[0][i] = true;
 	for (int i = 1; i <= sum; i++)
@@ -22,7 +22,7 @@ bool dpSum(int set[], int n, int sum) {
 int main() {
 	int set[] = { 3, 34, 4, 12, 5, 2 };
 	int sum = 9, n = sizeof(set) / sizeof(set[0]);
-	if (dpSum(set, n, sum) == true)
+	if (SubsetSum(set, n, sum) == true)
 		cout << "Found a dp with given sum" << endl;
 	else
 		cout << "No dp with given sum" << endl;
