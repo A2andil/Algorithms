@@ -14,8 +14,8 @@ int lis(int arr[], int n) {
 		for (j = 0; j < i; j++) {
 			if (arr[i] > arr[j] && dp[i] < dp[j] + 1)
 				dp[i] = dp[j] + 1;
-			mx = max(dp[i], mx);
 		}
+		mx = max(dp[i], mx);
 	}
 	return mx;
 }
