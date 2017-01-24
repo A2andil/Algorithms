@@ -20,7 +20,7 @@ int lis(int arr[], int n) {
 	return mx;
 }
 int main() {
-	int arr[] = { 10, 22, 9, 33, 21, 50, 41, 60 };
+	int arr[] = { 10, 22, 9, 33, 21, 50, 41, 60 , 70 };
 	int n = sizeof(arr) / sizeof(int);
 	cout << "Length of lis is " << lis(arr, n) << endl;
 	return 0;
