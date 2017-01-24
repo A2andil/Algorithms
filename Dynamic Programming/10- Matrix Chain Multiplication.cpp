@@ -5,8 +5,8 @@
 int MatrixChain(int p[], int n) {
     int dp[n][n];
     int i, j, k, L, q;
-    for (i = 1; i < n; i++) dp[i][i] = 0;
-
+    for (i = 1; i < n; i++)
+        dp[i][i] = 0;
     for (L = 2; L < n; L++) {
         for (i = 1; i < n - L + 1; i++) {
             j = i + L - 1;
