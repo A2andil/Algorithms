@@ -26,3 +26,4 @@ int main() {
     int size = sizeof(arr) / sizeof(int);
     printf("Minimum number of multiplications is %d ", MatrixChain(arr, size));
     return 0;
+}
