@@ -1,4 +1,5 @@
-//In The Name Of Allah
+//in the name of God
+
 #include <algorithm>
 #include <iostream>
 #include <map>
