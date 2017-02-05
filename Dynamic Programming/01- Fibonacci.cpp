@@ -1,4 +1,5 @@
-//In The Name of Allah
+//in the name of God
+
 #include <iostream>
 #define ll long long
 using namespace std;
