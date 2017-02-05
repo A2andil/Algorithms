@@ -1,4 +1,5 @@
-//In The Name of Allah
+//in the name of God
+
 #include <stdio.h>
 #include <limits.h>
 
