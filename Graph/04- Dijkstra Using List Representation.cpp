@@ -1,4 +1,4 @@
-//IN THE NAME OF ALLAH
+//in the name of God
 
 #include <iostream>
 #include <limits>
