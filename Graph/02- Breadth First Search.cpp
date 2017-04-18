@@ -17,7 +17,7 @@ void bfs(int s) {
         q.push(s);
         parent[s] = 0;
         while (!q.empty()) {
-                visited[s] = 1, s = q.front();
+                s = q.front(), visited[s] = 1;
                 q.pop();
                 for (auto x : list[s]) {
                         if (!visited[x]) {
