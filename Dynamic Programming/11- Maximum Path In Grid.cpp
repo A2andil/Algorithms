@@ -21,7 +21,7 @@ int pathGrid(int x, int y, int list[N][N]) {
 }
 
 int main(){
-        ios::sync_with_stdio(0), cin.tie();
+        ios::sync_with_stdio(false), cin.tie();
         int list[5][5] = {
                 { 3, 7, 9, 2, 7 },
                 { 9, 8, 3, 5, 5 },
