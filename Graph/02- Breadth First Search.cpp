@@ -10,18 +10,18 @@ using namespace std;
 
 const int N = 5;
 vector<int> list[N];
-int visited[N], parent[N];
+int visited[N], level[N];
 queue<int> q;
 
 void bfs(int s) {
         q.push(s);
-        parent[s] = 0;
+        level[s] = 0;
         while (!q.empty()) {
                 s = q.front(), visited[s] = 1;
                 q.pop();
                 for (auto x : list[s]) {
                         if (!visited[x]) {
-                                parent[x] = parent[s] + 1;
+                                level[x] = level[s] + 1;
                                 q.push(x);
                         }
                 }
