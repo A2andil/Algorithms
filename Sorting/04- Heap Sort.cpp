@@ -59,12 +59,5 @@ public:
 };
 
 int main() {
-	ll list[] = { 1, 5, -1, 20, 0, 5 };
-	int sz = sizeof(list) / sizeof(ll);
-	HeapSort *hSort = new HeapSort(list, sz);
-	for (int i = 0; i < sz; i++) {
-		cout << list[i] << ' ';
-	}
-	cout << endl;
 	return 0;
 }
