@@ -15,14 +15,10 @@ void counting_sort() {
         mx = max(mx, list[i]);
     }
     int count[mx + 1], sorted_list[list.size()];
-
-    // count numbers
-    for (int i = 0; i <= mx; i++)
-        count[i] = 0;
-    for (uint j = 0; j < list.size(); j++)
-        count[list[j]] += 1;
-
-    // prefix sum
+    
+    for (int i = 0; i <= mx; i++) count[i] = 0;
+    for (uint j = 0; j < list.size(); j++) count[list[j]] += 1;
+    
     for (int i = 1; i <= mx; i++)
         count[i] = count[i] + count[i - 1];
 
