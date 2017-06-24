@@ -10,17 +10,14 @@ vector<int> list;
 
 int partion(int lw, int hi) {
         int x = list[hi], i = lw - 1;
-        for (int j = lw; j < hi - 1; j += 1) {
+        for (int j = lw; j < hi; j += 1) {
                 if (list[j] <= x) {
                         i += 1;
                         swap(list[j], list[i]);
                 }
         }
-        if (list[i + 1] > list[hi]) {
-                swap(list[hi], list[i + 1]);
-                return i + 1;
-        }
-        return hi;
+        swap(list[hi], list[i + 1]);
+        return i + 1;
 }
 
 void quick_sort(int lw, int hi) {
@@ -31,6 +28,6 @@ void quick_sort(int lw, int hi) {
         }
 }
 
-int main() {
-        return 0;
+int main()  {
+    return 0;
 }
