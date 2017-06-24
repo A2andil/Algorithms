@@ -17,7 +17,7 @@ int partion(int lw, int hi) {
                 }
         }
         if (list[i + 1] > list[hi]) {
-                swap(list[hi], list[i + lw]);
+                swap(list[hi], list[i + 1]);
                 return i + 1;
         }
         return hi;
