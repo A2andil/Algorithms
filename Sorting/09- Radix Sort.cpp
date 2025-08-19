@@ -1,45 +1,65 @@
-//in the name of God
+// In the name of God
 
 #include <iostream>
-#include <set>
+#include <vector>
 #include <algorithm>
-
-#define ll long long
 using namespace std;
 
-const int MAX = 10;
-int list[MAX], result[MAX], cnt[10];
+class RadixSort {
+private:
+    void countingSort(vector<int>& arr, int exp) {
+        int n = arr.size();
+        vector<int> output(n), count(10, 0);
+        
+        // Count occurrences of each digit
+        for (int i = 0; i < n; i++)
+            count[(arr[i] / exp) % 10]++;
+        
+        // Convert to cumulative count
+        for (int i = 1; i < 10; i++)
+            count[i] += count[i - 1];
+        
+        // Build output array (reverse order for stability)
+        for (int i = n - 1; i >= 0; i--) {
+            int digit = (arr[i] / exp) % 10;
+            output[--count[digit]] = arr[i];
+        }
+        
+        arr = output;
+    }
 
-void copy() {
-        for (int i = 0; i < MAX; i++) {
-                list[i] = result[i];
+public:
+    void sort(vector<int>& arr) {
+        if (arr.empty()) return;
+        
+        int maxNum = *max_element(arr.begin(), arr.end());
+        
+        // Sort by each digit position
+        for (int exp = 1; maxNum / exp > 0; exp *= 10)
+            countingSort(arr, exp);
+    }
+    
+    void print(const vector<int>& arr) {
+        cout << "[";
+        for (int i = 0; i < arr.size(); i++) {
+            cout << arr[i];
+            if (i < arr.size() - 1) cout << ", ";
         }
-}
-
-void count_sort(int idx) {
-        memset(cnt, 0, sizeof(cnt));
-        for (int i = 0; i < MAX; i++) {
-                int x = (list[i] / idx) % 10;
-                cnt[x] += 1;
-        }
-        for (int i = 1; i < 10; i++) {
-                cnt[i] += cnt[i - 1];
-        }
-        for (int j = MAX - 1; j >= 0; j--) {
-                int x = (list[j] / idx) % 10;
-                result[--cnt[x]] = list[j];
-        }
-        copy();
-}
-
-void radix_sort() {
-        int mx = list[0];
-        for (int i = 1; i < MAX; i++)
-                mx = max(mx, list[i]);
-        for (int i = 1; mx / i > 0; i *= 10)
-                count_sort(i);
-}
+        cout << "]" << endl;
+    }
+};
 
 int main() {
-        return 0;
+    RadixSort rs;
+    vector<int> arr = {170, 45, 75, 90, 2, 802, 24, 66};
+    
+    cout << "Before: ";
+    rs.print(arr);
+    
+    rs.sort(arr);
+    
+    cout << "After:  ";
+    rs.print(arr);
+    
+    return 0;
 }
