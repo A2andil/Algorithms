@@ -33,7 +33,7 @@ public:
 		minHeapify(0);
 		return root;
 	}
-	void insertKey(ll k) {
+	void insert(ll k) {
 		int i = size;
 		list[i] = k, size = size + 1;
 		while (i != 0 && list[(i - 1) / 2] > list[i]) {
@@ -50,7 +50,7 @@ public:
 	HeapSort(ll list[], int sz) {
 		hp = new MinHeap(sz);
 		for (int i = 0; i < sz; i++) {
-			hp->insertKey(list[i]);
+			hp->insert(list[i]);
 		}
 		for (int i = 0; i < sz; i++) {
 			list[i] = hp->extractMin();
