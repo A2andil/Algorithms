@@ -25,11 +25,9 @@ void merge_sort(int left, int right) {
                         j += 1;
                 }
         }
-        for (int i = left; i <= right; i += 1) {
-                v[i] = aux[i - left];
-        }
 }
 
 int main() {
     return 0;
 }
+
