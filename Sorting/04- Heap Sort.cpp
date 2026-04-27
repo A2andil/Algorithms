@@ -1,63 +1,44 @@
-// in the name of God
+// In The Name of Allah
+
+// Heap Sort
+//
+// Problem:   Sort an array in non-decreasing order.
+// Approach:  Build a max-heap in place, then repeatedly swap the root
+//            (largest) with the last element of the heap and sift down.
+//            After n-1 extractions the array is sorted.
+// Time:      O(n log n) in all cases
+// Space:     O(1) — sorts in place
+// Stable:    No
 
 #include <iostream>
-#include <limits>
-
-#define ll long long
+#include <vector>
 using namespace std;
 
-class MinHeap {
-private:
-	ll *list, capacity, size;
-	void minHeapify(int i) {
-		int l = 2 * i + 1, r = 2 * i + 2, idx;
-		idx = l < size && list[l] < list[i] ? l : i;
-		idx = r < size && list[r] < list[idx] ? r : idx;
-		if (idx != i) {
-			swap(list[i], list[idx]);
-			minHeapify(idx);
-		}
-	}
-public:
-	MinHeap(int sz) {
-		size = 0, capacity = sz, list = new ll[sz];
-	}
-	ll extractMin() {
-		if (size <= 0) return INT_MAX;
-		else if (size == 1) {
-			size = 0;
-			return list[0];
-		}
-		ll root = list[0];
-		list[0] = list[size - 1], size = size - 1;
-		minHeapify(0);
-		return root;
-	}
-	void insert(ll k) {
-		int i = size;
-		list[i] = k, size = size + 1;
-		while (i != 0 && list[(i - 1) / 2] > list[i]) {
-			swap(list[i], list[(i - 1) / 2]);
-			i = (i - 1) / 2;
-		}
-	}
-};
+void sift_down(vector<int>& v, int n, int i) {
+    while (true) {
+        int largest = i, l = 2 * i + 1, r = 2 * i + 2;
+        if (l < n && v[l] > v[largest]) largest = l;
+        if (r < n && v[r] > v[largest]) largest = r;
+        if (largest == i) break;
+        swap(v[i], v[largest]);
+        i = largest;
+    }
+}
 
-class HeapSort {
-private:
-	MinHeap *hp;
-public:
-	HeapSort(ll list[], int sz) {
-		hp = new MinHeap(sz);
-		for (int i = 0; i < sz; i++) {
-			hp->insert(list[i]);
-		}
-		for (int i = 0; i < sz; i++) {
-			list[i] = hp->extractMin();
-		}
-	}
-};
+void heap_sort(vector<int>& v) {
+    int n = (int)v.size();
+    for (int i = n / 2 - 1; i >= 0; i--) sift_down(v, n, i);
+    for (int i = n - 1; i > 0; i--) {
+        swap(v[0], v[i]);
+        sift_down(v, i, 0);
+    }
+}
 
 int main() {
-	return 0;
+    vector<int> v = {12, 11, 13, 5, 6, 7, 1, 9};
+    heap_sort(v);
+    cout << "Sorted:";
+    for (int x : v) cout << " " << x;
+    cout << endl;
+    return 0;
 }

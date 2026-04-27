@@ -1,56 +1,69 @@
-//in the name of God
+// In The Name of Allah
+
+// Kruskal's Minimum Spanning Tree
+//
+// Problem:   In a connected weighted undirected graph, find a spanning tree
+//            (V-1 edges connecting all V vertices) of minimum total weight.
+// Approach:  Sort edges ascending by weight. Add each edge to the MST iff
+//            its endpoints are in different components (use DSU to test
+//            and merge). Stop after V-1 edges.
+// Time:      O(E log E) for the sort, near O(E) for the union-find passes
+// Space:     O(V + E)
+//
+// Compared with Prim: Kruskal is preferred when edges are easy to enumerate
+// and the graph is sparse; Prim wins for dense graphs where you'd rather
+// scan adjacency.
 
 #include <iostream>
 #include <vector>
-#include <queue>
 #include <algorithm>
-
-#define ll long long
-#define oo 1e9 + 7
+#include <numeric>
 using namespace std;
 
-struct Node {
-        int from, to, dist;
+struct Edge { int u, v, w; };
+
+struct DSU {
+    vector<int> p, r;
+    DSU(int n) : p(n), r(n, 0) { iota(p.begin(), p.end(), 0); }
+    int find(int x) {
+        while (p[x] != x) { p[x] = p[p[x]]; x = p[x]; }
+        return x;
+    }
+    bool unite(int a, int b) {
+        a = find(a); b = find(b);
+        if (a == b) return false;
+        if (r[a] < r[b]) swap(a, b);
+        p[b] = a;
+        if (r[a] == r[b]) r[a]++;
+        return true;
+    }
 };
 
-const int N = 1001;
-int k[N], s[N];
-vector<Node> v;
-
-bool cmp(const Node &a, const Node &b) {
-        return a.dist < b.dist ? true : false;
-}
-
-int find(int x) {
-        while (x != k[x]) {
-                x = k[x];
+pair<long long, vector<Edge>> kruskal(int n, vector<Edge> edges) {
+    sort(edges.begin(), edges.end(), [](const Edge& a, const Edge& b) {
+        return a.w < b.w;
+    });
+    DSU d(n);
+    long long total = 0;
+    vector<Edge> mst;
+    for (auto& e : edges) {
+        if (d.unite(e.u, e.v)) {
+            total += e.w;
+            mst.push_back(e);
+            if ((int)mst.size() == n - 1) break;
         }
-        return x;
-}
-
-bool same(int a, int b) {
-        return find(a) == find(b);
-}
-
-void Union(int a, int b) {
-        a = find(a), b = find(b);
-        if (s[a] < s[b]) swap(a, b);
-        s[a] += s[b];
-        k[b] = a;
-}
-
-void Kruskal() {
-        for (int i = 1; i < N; i++)
-                k[i] = i, s[i] = 1;
-        sort(v.begin(), v.end(), cmp);
-        for (int i = 0; i < v.size(); i++) {
-                if (!same(v[i].from, v[i].to)) {
-                        Union(v[i].from, v[i].to);
-                }
-        }
+    }
+    return {total, mst};
 }
 
 int main() {
-
+    int n = 4;
+    vector<Edge> edges = {
+        {0, 1, 10}, {0, 2, 6}, {0, 3, 5}, {1, 3, 15}, {2, 3, 4}
+    };
+    auto [total, mst] = kruskal(n, edges);
+    cout << "MST total weight: " << total << endl;
+    cout << "MST edges:" << endl;
+    for (auto& e : mst) cout << "  " << e.u << " - " << e.v << " (w=" << e.w << ")" << endl;
     return 0;
 }

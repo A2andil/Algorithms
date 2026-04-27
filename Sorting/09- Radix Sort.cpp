@@ -1,4 +1,17 @@
-// In the name of God
+// In The Name of Allah
+
+// Radix Sort (LSD, base-10)
+//
+// Problem:   Sort an array of non-negative integers.
+// Approach:  Sort by digit, least-significant first, using a stable
+//            counting sort as the per-digit step. After d passes (d = number
+//            of digits in the largest value) the array is fully sorted.
+// Time:      O(d * (n + k)) where k = base = 10
+// Space:     O(n + k)
+// Stable:    Yes
+//
+// Faster than O(n log n) comparison sorts when values are bounded and d is
+// small (large n, small max value).
 
 #include <iostream>
 #include <vector>

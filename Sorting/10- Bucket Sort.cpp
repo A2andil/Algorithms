@@ -1,40 +1,41 @@
-// in the name of God
+// In The Name of Allah
+
+// Bucket Sort
+//
+// Problem:   Sort an array of values that are roughly uniformly distributed
+//            over a known range (here we assume floats in [0, 1)).
+// Approach:  Distribute values into n buckets based on their range, sort each
+//            bucket (insertion sort for small buckets), and concatenate.
+//            With uniform input and n buckets, each bucket has O(1) elements
+//            on average → linear total time.
+// Time:      O(n + k) average, O(n^2) worst (all values into one bucket)
+// Space:     O(n + k)
+// Stable:    Yes (when the per-bucket sort is stable)
 
 #include <iostream>
 #include <vector>
-
-#define ll long long
+#include <algorithm>
 using namespace std;
 
-vector<double> list, sorted_list;
-
-void insertion_sort(vector<double> &v) {
-        for (int i = 1; i < v.size(); i++) {
-                int idx = i;
-                for (int j = i - 1; j >= 0; j--) {
-                        if (idx > 0 && v[idx] < v[j]) {
-                                swap(v[idx], v[j]);
-                                idx -= 1;
-                        }
-                        else break;
-                }
-        }
+void bucket_sort(vector<double>& v) {
+    int n = (int)v.size();
+    if (n <= 1) return;
+    vector<vector<double>> buckets(n);
+    for (double x : v) {
+        int idx = (int)(n * x);
+        if (idx >= n) idx = n - 1;
+        buckets[idx].push_back(x);
+    }
+    for (auto& b : buckets) sort(b.begin(), b.end());
+    int k = 0;
+    for (auto& b : buckets) for (double x : b) v[k++] = x;
 }
 
-void bucket_sort() {
-        vector<vector<double>> B(list.size() + 1);
-        for (int i = 0; i < list.size(); i++) {
-                int idx = list.size() * list[i];
-                B[idx].push_back(list[i]);
-        }
-        for (int i = 0; i < list.size() + 1; i++) {
-                insertion_sort(B[i]);
-                for (int j = 0; j < B[i].size(); j++) {
-                        sorted_list.push_back(B[i][j]);
-                }
-        }
-}
-
-int main()  {
+int main() {
+    vector<double> v = {0.42, 0.32, 0.23, 0.52, 0.25, 0.47, 0.51};
+    bucket_sort(v);
+    cout << "Sorted:";
+    for (double x : v) cout << " " << x;
+    cout << endl;
     return 0;
 }

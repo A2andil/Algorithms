@@ -1,36 +1,68 @@
-// in the name of God
+// In The Name of Allah
 
+// Rabin-Karp Pattern Matching
+//
+// Problem:   Find all occurrences of a pattern P in a text T.
+// Approach:  Compute a rolling polynomial hash of every length-|P| window in
+//            T and compare to hash(P). When hashes match, verify character by
+//            character (handles hash collisions). With a small prime modulus
+//            this is occasionally O(n*m) worst case; with a large random
+//            modulus it's expected O(n + m).
+// Time:      O(n + m) average, O(n*m) worst
+// Space:     O(1)
+//
+// Sweet spot: matching many patterns of the same length against one text
+// (precompute the rolling hash once, hash every pattern, compare).
 
 #include <iostream>
 #include <string>
-
-#define d 256
-#define q 101
-#define ll long long
+#include <vector>
 using namespace std;
 
-void rabin_karp(string pat, string txt) {
-    int M = pat.length(), N = txt.length(), i, j;
-    int p = 0, t = 0, h = 1;
-    for (i = 0; i < M-1; i++) h = (h * d) % q;
-    for (i = 0; i < M; i++) {
-        p = (d * p + pat[i]) % q;
-        t = (d * t + txt[i]) % q;
+const long long BASE = 256;
+const long long MOD  = 1000000007LL;
+
+vector<int> rabin_karp(const string& text, const string& pat) {
+    vector<int> matches;
+    int n = (int)text.size(), m = (int)pat.size();
+    if (m == 0 || m > n) return matches;
+
+    long long h = 1;
+    for (int i = 0; i < m - 1; i++) h = (h * BASE) % MOD;
+
+    long long p = 0, t = 0;
+    for (int i = 0; i < m; i++) {
+        p = (BASE * p + (unsigned char)pat[i]) % MOD;
+        t = (BASE * t + (unsigned char)text[i]) % MOD;
     }
-    for (i = 0; i <= N - M; i++) {
+
+    for (int i = 0; i <= n - m; i++) {
         if (p == t) {
-            for (j = 0; j < M; j++) {
-                if (txt[i+j] != pat[j])
-                    break;
-            }
-            if (j == M) cout << "Pattern found at index " <<  i << endl;
+            int j = 0;
+            while (j < m && text[i + j] == pat[j]) j++;
+            if (j == m) matches.push_back(i);
         }
-        if (i < N - M) {
-            t = (d * (t - txt[i] * h) + txt[i + M]) % q;
-            if (t < 0) t = (t + q);
+        if (i < n - m) {
+            t = (BASE * (t - (unsigned char)text[i] * h) + (unsigned char)text[i + m]) % MOD;
+            if (t < 0) t += MOD;
         }
     }
+    return matches;
 }
+
 int main() {
+    string text = "GEEKS FOR GEEKS";
+    string pat = "GEEK";
+    auto matches = rabin_karp(text, pat);
+    cout << "Pattern \"" << pat << "\" found in \"" << text << "\" at:";
+    for (int idx : matches) cout << " " << idx;
+    cout << endl;
+
+    text = "ABCABCDABCABCAB";
+    pat = "ABCAB";
+    matches = rabin_karp(text, pat);
+    cout << "Pattern \"" << pat << "\" found in \"" << text << "\" at:";
+    for (int idx : matches) cout << " " << idx;
+    cout << endl;
     return 0;
 }

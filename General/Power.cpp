@@ -1,15 +1,26 @@
-//IN THE NAME OF ALLAH
-#include<iostream>
-#define LL long long
+// In The Name of Allah
+
+// Power (fast exponentiation, recursive)
+//
+// Problem:   Compute base^exp.
+// Approach:  Halve the exponent each step:
+//              base^exp = (base^(exp/2))^2                  if exp even
+//              base^exp = (base^(exp/2))^2 * base           if exp odd
+// Time:      O(log exp)
+// Space:     O(log exp) recursion stack
+
+#include <iostream>
 using namespace std;
 
-LL Power(LL N, int M){
-	if (!M) return 1;
-	LL rs = Power(N, M / 2);
-	return M % 2 ? rs*rs*N : rs*rs;
+long long power(long long base, int exp) {
+    if (exp == 0) return 1;
+    long long half = power(base, exp / 2);
+    return (exp % 2) ? half * half * base : half * half;
 }
 
-int main(){
-	cout << Power(2, 32) << endl;
-	return 0;
+int main() {
+    cout << "2^32 = " << power(2, 32) << endl;
+    cout << "3^10 = " << power(3, 10) << endl;
+    cout << "5^0  = " << power(5, 0) << endl;
+    return 0;
 }
